@@ -1,0 +1,34 @@
+<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                <div class="sb-sidenav-menu-heading">Main</div>
+                <a class="nav-link" href="{% url 'admin.home' %}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    Dashboard
+                </a>
+                <div class="sb-sidenav-menu-heading">Models</div>
+                <a class="nav-link" href="{% url 'admin.categories' %}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-layer-group"></i></div>
+                    Categories
+                </a>
+                <a class="nav-link" href="{% url 'admin.subcategories' %}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-layer-group"></i></div>
+                    Subcategories
+                </a>
+                <a class="nav-link" href="{% url 'admin.products' %}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-apple-alt"></i></div>
+                    Products
+                </a>
+                <a class="nav-link" href="{% url 'admin.users' %}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                    Users
+                </a>
+                <a class="nav-link" href="charts.html">
+                    <div class="sb-nav-link-icon"><i class="fas fa-shopping-bag"></i></div>
+                    Orders
+                </a>
+            </div>
+        </div>
+    </nav>
+</div>

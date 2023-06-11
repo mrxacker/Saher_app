@@ -1,0 +1,61 @@
+{% extends 'adminpanel/main.html' %}
+{% block main %}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Subcategories</h1>
+        <div class="card mb-4">
+            <div class="card-header">
+                <a class="btn btn-primary" href="{% url 'subcategory.add' %}" role="button"> <i class="fa fa-plus" aria-hidden="true"></i> Add new Subcategory</a>
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Category</th>
+                            <th>Subcategory name</th>
+                            <th>Icon</th>
+                            <th>Updated at</th>
+                            <th>Products</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Category</th>
+                            <th>Subcategory name</th>
+                            <th>Icon</th>
+                            <th>Updated at</th>
+                            <th>Products</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for category in categories %}
+                        <tr>
+                            <td>{{category.id}}</td>
+                            <td>{{category.category}}</td>
+                            <td>{{category.name}}</td>
+                            <td> <i class="{{category.icon}}" aria-hidden="true"></i></td>
+                            <td> {{category.updated_at|date:"d.m.Y H:i:s"}}</td>
+                            <td>
+                                <a href="" class="btn btn-sm btn-primary"><i class="fa fa-list" aria-hidden="true"></i> Products</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'subcategory.edit' category.id %}" class="btn btn-sm btn-info"> <i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'subcategory.delete' category.id %}" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock main %}

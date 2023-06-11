@@ -1,0 +1,21 @@
+{% extends 'adminpanel/main.html' %}
+{% block main %}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Update product</h1>
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class = "col-12">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{form.as_p}}
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock main %}
