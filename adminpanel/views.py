@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from categories.models import Category
 from subcategories.models import Subcategory
 from products.models import Product
+from feedbacks.models import Feedback
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
@@ -50,6 +51,15 @@ def products(request):
         'products':products
     }
     return render(request, 'adminpanel/products.html', context)
+
+
+@login_required(login_url='admin.login')
+def feedbacks(request):
+    feedbacks = Feedback.objects.all()
+    context = {
+        'feedbacks':feedbacks
+    }
+    return render(request, 'adminpanel/feedbacks.html', context)
 
 @login_required(login_url='admin.login')
 def users(request):
