@@ -1,0 +1,50 @@
+{% extends 'adminpanel/main.html' %}
+{% block main %}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Feedbacks</h1>
+        <div class="card mb-4">
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Product name</th>
+                            <th>Subcategory</th>
+                            <th>Updated at</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Product name</th>
+                            <th>Subcategory</th>
+                            <th>Updated at</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for product in products %}
+                        <tr>
+                            <td>{{product.id}}</td>
+                            <td>{{product.name}}</td>
+                            <td>{{product.subcategory}}</td>
+                            <td> {{product.updated_at|date:"d.m.Y H:i:s"}}</td>
+                            <td>
+                                <a href="{% url 'product.edit' product.id %}" class="btn btn-sm btn-info"> <i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'product.delete' product.id %}" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock main %}
