@@ -29,7 +29,8 @@ urlpatterns = [
     path ('orders/', include('orders.urls')),
     path ('adminpanel/', include('adminpanel.urls')),
 
-    path("", views.index, name="main.home")
+    path("", views.index, name="main.home"),
+    path("contact/", views.contact, name="main.contact"),
 ]
 
 if settings.DEBUG:
