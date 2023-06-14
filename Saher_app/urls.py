@@ -15,23 +15,30 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import handler400
 
 from django.conf import settings
 from django.conf.urls.static import static
 
 from . import views
 
+
+handler400 = views.error400
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path ('categories/', include('categories.urls')),
-    path ('subcategories/', include('subcategories.urls')),
-    path ('products/', include('products.urls')),
-    path ('orders/', include('orders.urls')),
-    path ('adminpanel/', include('adminpanel.urls')),
+    path('categories/', include('categories.urls')),
+    path('subcategories/', include('subcategories.urls')),
+    path('products/', include('products.urls')),
+    path('orders/', include('orders.urls')),
+    path('adminpanel/', include('adminpanel.urls')),
 
     path("", views.index, name="main.home"),
     path("contact/", views.contact, name="main.contact"),
+
+    path('sub/<int:i>', views.subcategory, name='main.sub')
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

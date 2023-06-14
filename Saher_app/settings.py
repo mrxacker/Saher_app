@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-x73ima0(1x+bu%ae-f@be(a42o+*j@7=vpzb+x2*s(s9t3-fk3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -68,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'Saher_app.context_processors.include_categories'
             ],
         },
     },

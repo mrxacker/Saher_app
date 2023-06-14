@@ -40,7 +40,7 @@
                 <div class="top-bar left">
                     <ul class="horizontal-menu">
                         <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i>info@saheronline.com</a></li>
-                        <li><a href="#">Free Shipping for all Order of 150TMT</a></li>
+                        <li><a href="#">Free Shipping for all Order of 150 TMT</a></li>
                     </ul>
                 </div>
                 <div class="top-bar right">
@@ -75,12 +75,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
-                        <a href="index.html" class="biolife-logo"><img src=" {% static 'assets/images/organic-3.png' %}" alt="biolife logo" width="135" height="34"></a>
+                        <a href="/" class="biolife-logo"><img src=" {% static 'assets/images/organic-3.png' %}" alt="biolife logo" width="135" height="34"></a>
                     </div>
                     <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
                         <div class="primary-menu">
                         <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu" data-menuname="main menu">
-                            <li class="menu-item"><a href="index.html">Home</a></li>
+                            <li class="menu-item"><a href="/">Home</a></li>
                             <li class="menu-item menu-item-has-children has-megamenu">
                                 <a href="#" class="menu-name" data-title="Shop" >Shop</a>
                                 <div class="wrap-megamenu lg-width-900 md-width-750">
@@ -90,7 +90,7 @@
                                                 <h4 class="menu-title">Top sellers</h4>
                                                 <ul class="menu">
                                                     {% for subcategory in subcategories|slice:':5' %}
-                                                    <li><a href="#">{{subcategory}}</a></li>
+                                                    <li><a href="{% url 'main.sub' subcategory.id %}">{{subcategory}}</a></li>
                                                     {% endfor %}
                                                 </ul>
                                             </div>
@@ -100,7 +100,7 @@
                                                 <h4 class="menu-title">Last added</h4>
                                                 <ul class="menu">
                                                     {% for subcategory in subcategories|slice:':5' %}
-                                                    <li><a href="#">{{subcategory}}</a></li>
+                                                    <li><a href="{% url 'main.sub' subcategory.id %}">{{subcategory}}</a></li>
                                                     {% endfor %}
                                                 </ul>
                                             </div>
@@ -110,7 +110,7 @@
                                                 <h4 class="menu-title">Featured Products</h4>
                                                 <ul class="menu">
                                                     {% for subcategory in subcategories|slice:':5' %}
-                                                    <li><a href="#">{{subcategory}}</a></li>
+                                                    <li><a href="{% url 'main.sub' subcategory.id %}">{{subcategory}}</a></li>
                                                     {% endfor %}
                                                 </ul>
                                             </div>
@@ -320,7 +320,7 @@
                                                         <div class="wrap-custom-menu vertical-menu">
                                                             <ul class="menu">
                                                                 {% for subcategory in category.subcategories.all|slice:":10" %}
-                                                                <li><a href="#">{{subcategory.name}}</a></li>
+                                                                <li><a href="{% url 'main.sub' subcategory.id %}">{{subcategory.name}}</a></li>
                                                                 {% endfor %}
                                                             </ul>
                                                         </div>
@@ -374,7 +374,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-9">
                         <section class="footer-item">
-                            <a href="index.html" class="logo footer-logo"><img src=" {% static 'assets/images/organic-3.png' %}" alt="biolife logo" width="135" height="34"></a>
+                            <a href="/" class="logo footer-logo"><img src=" {% static 'assets/images/organic-3.png' %}" alt="biolife logo" width="135" height="34"></a>
                             <div class="footer-phone-info">
                                 <i class="biolife-icon icon-head-phone"></i>
                                 <p class="r-info">
