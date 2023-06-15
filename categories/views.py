@@ -3,7 +3,7 @@ from .forms import CategoryForm
 from .models import Category
 
 def add(request):
-    form = CategoryForm(request.POST or None)
+    form = CategoryForm(request.POST or None, request.FILES or None)
     if request.method == 'POST':
         if form.is_valid():
             form.save()
@@ -12,7 +12,7 @@ def add(request):
 
 def edit(request,i):
     category = Category.objects.get(id=i)
-    form = CategoryForm(request.POST or None, instance=category)
+    form = CategoryForm(request.POST or None, request.FILES or None, instance=category)
     if request.method == 'POST':
         if form.is_valid():
             form.save()

@@ -36,7 +36,12 @@ urlpatterns = [
     path("", views.index, name="main.home"),
     path("contact/", views.contact, name="main.contact"),
 
-    path('sub/<int:i>', views.subcategory, name='main.sub')
+    path('sub/<int:i>', views.subcategory, name='main.sub'),
+    path('product/<int:i>', views.product, name='main.product'),
+
+    path('login/', views.login, name='main.login'),
+    path('register/', views.register, name='main.register'),
+    path('logout/', views.logout, name='main.logout'),
 ]
 
 if settings.DEBUG:

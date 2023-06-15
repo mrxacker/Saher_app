@@ -26,7 +26,7 @@ def index(request):
         'products_count':products_count,
         'users_count':users_count,
     }
-    return render(request, 'adminpanel/index.html', context)
+    return render(request, 'adminpanel//', context)
 
 @login_required(login_url='admin.login')
 def categories(request):
