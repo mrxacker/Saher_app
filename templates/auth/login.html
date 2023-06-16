@@ -12,33 +12,21 @@
                 <!--Form Sign In-->
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="signin-container">
+                        {% for message in messages %}
+                            <p style="text-align:center; color:red">{{message}}</p>
+                        {% endfor %}
                         <form action="" name="frm-login" method="post">
-                            {% for i in form.errors %}
-                                {{i}}
-                            {% endfor %}
                             {% csrf_token %}
                             <p class="form-row">
                                 <label for="fid-pass">Username:<span class="requite">*</span></label>
                                 {{form.username}}
-                                {{form.username.errors.0}}
-                            </p>
-                            <p class="form-row">
-                                <label for="fid-name">Email Address:<span class="requite">*</span></label>
-                                {{form.email}}
-                                {{form.email.errors.0}}
                             </p>
                             <p class="form-row">
                                 <label for="fid-pass">Password:<span class="requite">*</span></label>
-                                {{form.password1}}
-                                {{form.password1.errors.0}}
-                            </p>
-                            <p class="form-row">
-                                <label for="fid-pass">Confirm Password:<span class="requite">*</span></label>
-                                {{form.password2}}
-                                {{form.password2.errors.0}}
+                                {{form.password}}
                             </p>
                             <p class="form-row wrap-btn">
-                                <button class="btn btn-submit btn-bold" type="submit">register</button>
+                                <button class="btn btn-submit btn-bold" type="submit">Login</button>
                             </p>
                         </form>
                     </div>
@@ -57,7 +45,7 @@
                                 <li>Track new orders</li>
                                 <li>Save items to your Wishlist</li>
                             </ul>
-                            <a href="{% url 'main.login' %}" class="btn btn-bold">Login your account</a>
+                            <a href="{% url 'main.register' %}" class="btn btn-bold">Create an account</a>
                         </div>
                     </div>
                 </div>

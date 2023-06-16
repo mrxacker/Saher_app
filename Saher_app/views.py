@@ -1,16 +1,20 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.urls import reverse 
 from categories.models import Category
 from subcategories.models import Subcategory
 from feedbacks.forms import FeedbackForm
 from products.models import Product
 
-from customers.forms import CustomerForm
+from cards.models import Cart, CartItem
 
-
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login as lgin
 from django.contrib.auth import logout as lgout
 from django.contrib.auth import authenticate
+
+from customers.forms import CustomAuthenticationForm, CustomUserCreationForm
+from django.contrib import messages
 
 
 def index(request):
@@ -60,24 +64,70 @@ def subcategory(request, i):
 
 def product(request, i):
     product = Product.objects.get(id=i)
+    quantity = 0
+    if request.user is not None:
+        cart = Cart.objects.get(user=request.user)
+        quantity = cart.checkproduct(product)
     context = {
-        'product': product
+        'product': product,
+        'quantity': quantity
     }
     return render(request, 'product_details.html', context)
 
 
 
 def login(request):
-    pass
+    if request.method == "POST":
+        form = CustomAuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                lgin(request, user)
+                return redirect("main.home")
+            else:
+                messages.error(request,"Invalid username or password.")
+        else:
+            messages.error(request,"Invalid username or password.")
+    form = CustomAuthenticationForm()
+    return render(request, 'auth/login.html', {'form':form})
 
 def register(request):
-    form = CustomerForm(request.POST or None)
+    form = CustomUserCreationForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
-            
-
-            return redirect('/')
+            user = form.save()
+            lgin(request, user)
+            return redirect('main.home')
     return render(request, 'auth/register.html', {'form':form})
 
 def logout(request):
-    pass
+    lgout(request)
+    return redirect('main.home')
+
+def addcart(request,i):
+    product = Product.objects.get(id=i)
+    cart, created = Cart.objects.get_or_create(user = request.user)
+    cartitem, created = CartItem.objects.get_or_create(cart = cart, product = product)
+    cartitem.quantity+=1
+    cartitem.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+def removecart(request,i):
+    product = Product.objects.get(id=i)
+    cart, created = Cart.objects.get_or_create(user = request.user)
+    cartitem, created = CartItem.objects.get_or_create(cart = cart, product = product)
+    cartitem.quantity-=1
+    cartitem.save()
+    if cartitem.quantity == 0:
+        cartitem.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+def deletecart(request,i):
+    product = Product.objects.get(id=i)
+    cart, created = Cart.objects.get_or_create(user = request.user)
+    cartitem, created = CartItem.objects.get_or_create(cart = cart, product = product)
+    cartitem.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+

@@ -1,14 +1,24 @@
-from django import forms
-from .models import Customer
-from django.contrib.auth.models import User
+from django import forms  
+from django.contrib.auth.models import User  
+from django.contrib.auth.forms import UserCreationForm  
 from django.core.exceptions import ValidationError  
+from django.forms.fields import EmailField  
+from django.forms.forms import Form  
+from django.contrib.auth.forms import AuthenticationForm
+  
 
-class CustomerForm(forms.ModelForm):
-    username = forms.CharField(widget=forms.TextInput({'class':'txt-input'}))
-    email = forms.EmailField(widget=forms.EmailInput({'class':'txt-input'}))
-    full_name = forms.CharField(widget=forms.TextInput({'class':'txt-input'}))
-    password1 = forms.CharField(widget=forms.PasswordInput({'class':'txt-input'}))
-    password2 = forms.CharField(widget=forms.PasswordInput({'class':'txt-input'}))
+class CustomAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(label='Username:', min_length=5, max_length=150, widget=forms.TextInput(attrs={'class':'txt-input','placeholder':'Username'}))  
+    password = forms.CharField(label='Password:', widget=forms.PasswordInput(attrs={'class':'txt-input','placeholder':'Password'}))  
+
+
+
+class CustomUserCreationForm(UserCreationForm):  
+    username = forms.CharField(label='Username:', min_length=5, max_length=150, widget=forms.TextInput(attrs={'class':'txt-input'}))  
+    password1 = forms.CharField(label='Password:', widget=forms.PasswordInput(attrs={'class':'txt-input'}))  
+    password2 = forms.CharField(label='Confirm password:', widget=forms.PasswordInput(attrs={'class':'txt-input'}))  
+    email = forms.EmailField(label='Email:', widget=forms.EmailInput(attrs={'class':'txt-input'}))  
+    is_superuser = forms.BooleanField(label='This is Admin User', required=False)
 
     def username_clean(self):  
         username = self.cleaned_data['username'].lower()  
@@ -32,6 +42,11 @@ class CustomerForm(forms.ModelForm):
             raise ValidationError(" Email Already Exist")  
         return email  
 
-    class Meta:
-        model = Customer
-        fields = "__all__"
+    def save(self, commit = True):  
+        user = User.objects.create_user(  
+            username= self.cleaned_data['username'],   
+            password= self.cleaned_data['password1'] ,
+            email= self.cleaned_data['email'],
+            is_superuser= self.cleaned_data['is_superuser'] 
+        )  
+        return user  

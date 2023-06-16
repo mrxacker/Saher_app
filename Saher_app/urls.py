@@ -42,6 +42,10 @@ urlpatterns = [
     path('login/', views.login, name='main.login'),
     path('register/', views.register, name='main.register'),
     path('logout/', views.logout, name='main.logout'),
+
+    path('addcart/<int:i>', views.addcart, name='main.cart.add'),
+    path('removecart/<int:i>', views.removecart, name='main.cart.remove'),
+    path('deletecart/<int:i>', views.deletecart, name='main.cart.delete'),
 ]
 
 if settings.DEBUG:

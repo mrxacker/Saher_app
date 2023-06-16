@@ -63,9 +63,9 @@
                             </select>
                         </li>
                         {% if user.is_authenticated %}
-                        <li><a href="login.html" class="login-link"><i class="biolife-icon icon-login"></i>{{user.username}} (Logout)</a></li>
+                        <li><a href="{% url 'main.logout' %}" class="login-link"><i class="biolife-icon icon-login"></i>{{user.username}} (Logout)</a></li>
                         {% else %}
-                        <li><a href="login.html" class="login-link"><i class="biolife-icon icon-login"></i>Login/Register</a></li>
+                        <li><a href="{% url 'main.login' %}" class="login-link"><i class="biolife-icon icon-login"></i>Login/Register</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -141,137 +141,44 @@
                                 </div>
                             </div>
                             {% if user.is_authenticated %}
-                            <div class="wishlist-block hidden-sm hidden-xs">
-                                <a href="#" class="link-to">
-                                    <span class="icon-qty-combine">
-                                        <i class="icon-heart-bold biolife-icon"></i>
-                                        <span class="qty">4</span>
-                                    </span>
-                                </a>
-                            </div>
                             <div class="minicart-block">
                                 <div class="minicart-contain">
                                     <a href="javascript:void(0)" class="link-to">
                                             <span class="icon-qty-combine">
                                                 <i class="icon-cart-mini biolife-icon"></i>
-                                                <span class="qty">8</span>
+                                                <span class="qty">{{user.carts.all.0.itemcount}}</span>
                                             </span>
                                         <span class="title">My Cart -</span>
-                                        <span class="sub-total">0.00 TMT</span>
+                                        <span class="sub-total">{{user.carts.all.0.totalsum}} TMT</span>
                                     </a>
                                     <div class="cart-content">
                                         <div class="cart-inner">
                                             <ul class="products">
+                                                {% for item in user.carts.all.0.items.all %}
                                                 <li>
                                                     <div class="minicart-item">
                                                         <div class="thumb">
-                                                            <a href="#"><img src=" {% static 'assets/images/minicart/pr-01.jpg' %}" width="90" height="90" alt="National Fresh"></a>
+                                                            <a href="{% url 'main.product' item.product.id %}"><img src="{{item.product.image.url}}" width="90" height="90" alt="National Fresh"></a>
                                                         </div>
                                                         <div class="left-info">
-                                                            <div class="product-title"><a href="#" class="product-name">National Fresh Fruit</a></div>
+                                                            <div class="product-title"><a href="{% url 'main.product' item.product.id %}" class="product-name">National Fresh Fruit</a></div>
                                                             <div class="price">
-                                                                <ins><span class="price-amount">85.00 <span class="currencySymbol">TMT</span> </span></ins>
-                                                                <del><span class="price-amount">95.00 <span class="currencySymbol">TMT</span></span></del>
+                                                                <ins><span class="price-amount">{{item.product.price_new}} <span class="currencySymbol">TMT</span> </span></ins>
+                                                                <del><span class="price-amount">{{item.product.price_old}} <span class="currencySymbol">TMT</span></span></del>
                                                             </div>
                                                             <div class="qty">
                                                                 <label for="cart[id123][qty]">Qty:</label>
-                                                                <input type="number" class="input-qty" name="cart[id123][qty]" id="cart[id123][qty]" value="1" disabled>
+                                                                <input type="number" class="input-qty" name="cart[id123][qty]" id="cart[id123][qty]" value="{{item.quantity}}" disabled>
                                                             </div>
                                                         </div>
                                                         <div class="action">
                                                             <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                            <a href="#" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                            <a href="{% url 'main.cart.delete' item.product.id %}" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                                         </div>
                                                     </div>
                                                 </li>
-                                                <li>
-                                                    <div class="minicart-item">
-                                                        <div class="thumb">
-                                                            <a href="#"><img src=" {% static 'assets/images/minicart/pr-02.jpg' %}" width="90" height="90" alt="National Fresh"></a>
-                                                        </div>
-                                                        <div class="left-info">
-                                                            <div class="product-title"><a href="#" class="product-name">National Fresh Fruit</a></div>
-                                                            <div class="price">
-                                                                <ins><span class="price-amount">85.00 <span class="currencySymbol">TMT</span> </span></ins>
-                                                                <del><span class="price-amount">95.00 <span class="currencySymbol">TMT</span></span></del>
-                                                            </div>
-                                                            <div class="qty">
-                                                                <label for="cart[id124][qty]">Qty:</label>
-                                                                <input type="number" class="input-qty" name="cart[id124][qty]" id="cart[id124][qty]" value="1" disabled>
-                                                            </div>
-                                                        </div>
-                                                        <div class="action">
-                                                            <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                            <a href="#" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="minicart-item">
-                                                        <div class="thumb">
-                                                            <a href="#"><img src=" {% static 'assets/images/minicart/pr-03.jpg' %}" width="90" height="90" alt="National Fresh"></a>
-                                                        </div>
-                                                        <div class="left-info">
-                                                            <div class="product-title"><a href="#" class="product-name">National Fresh Fruit</a></div>
-                                                            <div class="price">
-                                                                <ins><span class="price-amount">85.00 <span class="currencySymbol">TMT</span> </span></ins>
-                                                                <del><span class="price-amount">95.00 <span class="currencySymbol">TMT</span></span></del>
-                                                            </div>
-                                                            <div class="qty">
-                                                                <label for="cart[id125][qty]">Qty:</label>
-                                                                <input type="number" class="input-qty" name="cart[id125][qty]" id="cart[id125][qty]" value="1" disabled>
-                                                            </div>
-                                                        </div>
-                                                        <div class="action">
-                                                            <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                            <a href="#" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="minicart-item">
-                                                        <div class="thumb">
-                                                            <a href="#"><img src=" {% static 'assets/images/minicart/pr-04.jpg' %}" width="90" height="90" alt="National Fresh"></a>
-                                                        </div>
-                                                        <div class="left-info">
-                                                            <div class="product-title"><a href="#" class="product-name">National Fresh Fruit</a></div>
-                                                            <div class="price">
-                                                                <ins><span class="price-amount">85.00 <span class="currencySymbol">TMT</span> </span></ins>
-                                                                <del><span class="price-amount">95.00 <span class="currencySymbol">TMT</span></span></del>
-                                                            </div>
-                                                            <div class="qty">
-                                                                <label for="cart[id126][qty]">Qty:</label>
-                                                                <input type="number" class="input-qty" name="cart[id126][qty]" id="cart[id126][qty]" value="1" disabled>
-                                                            </div>
-                                                        </div>
-                                                        <div class="action">
-                                                            <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                            <a href="#" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="minicart-item">
-                                                        <div class="thumb">
-                                                            <a href="#"><img src=" {% static 'assets/images/minicart/pr-05.jpg' %}" width="90" height="90" alt="National Fresh"></a>
-                                                        </div>
-                                                        <div class="left-info">
-                                                            <div class="product-title"><a href="#" class="product-name">National Fresh Fruit</a></div>
-                                                            <div class="price">
-                                                                <ins><span class="price-amount">85.00 <span class="currencySymbol">TMT</span> </span></ins>
-                                                                <del><span class="price-amount">95.00 <span class="currencySymbol">TMT</span></span></del>
-                                                            </div>
-                                                            <div class="qty">
-                                                                <label for="cart[id127][qty]">Qty:</label>
-                                                                <input type="number" class="input-qty" name="cart[id127][qty]" id="cart[id127][qty]" value="1" disabled>
-                                                            </div>
-                                                        </div>
-                                                        <div class="action">
-                                                            <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                            <a href="#" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </li>
+                                                {% endfor %}
+
                                             </ul>
                                             <p class="btn-control">
                                                 <a href="shopping-cart.html" class="btn view-cart">view cart</a>
