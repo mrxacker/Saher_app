@@ -119,6 +119,7 @@
                                 </div>
                             </li>
                             <li class="menu-item"><a href="{% url 'main.contact' %}">Contact</a></li>
+                            <li class="menu-item"><a href="{% url 'main.aboutus' %}">About us</a></li>
                         </ul>
                     </div>
                     </div>
@@ -142,6 +143,7 @@
                             </div>
                             {% if user.is_authenticated %}
                             <div class="minicart-block">
+                                {% if user.carts.all.0.itemcount > 0 %}
                                 <div class="minicart-contain">
                                     <a href="javascript:void(0)" class="link-to">
                                             <span class="icon-qty-combine">
@@ -161,7 +163,7 @@
                                                             <a href="{% url 'main.product' item.product.id %}"><img src="{{item.product.image.url}}" width="90" height="90" alt="National Fresh"></a>
                                                         </div>
                                                         <div class="left-info">
-                                                            <div class="product-title"><a href="{% url 'main.product' item.product.id %}" class="product-name">National Fresh Fruit</a></div>
+                                                            <div class="product-title"><a href="{% url 'main.product' item.product.id %}" class="product-name">{{item.product.name}}</a></div>
                                                             <div class="price">
                                                                 <ins><span class="price-amount">{{item.product.price_new}} <span class="currencySymbol">TMT</span> </span></ins>
                                                                 <del><span class="price-amount">{{item.product.price_old}} <span class="currencySymbol">TMT</span></span></del>
@@ -172,7 +174,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="action">
-                                                            <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                            <a href="{% url 'main.product' item.product.id %}" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                                             <a href="{% url 'main.cart.delete' item.product.id %}" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                                         </div>
                                                     </div>
@@ -181,12 +183,13 @@
 
                                             </ul>
                                             <p class="btn-control">
-                                                <a href="shopping-cart.html" class="btn view-cart">view cart</a>
+                                                <a href="{% url 'main.cart' %}" class="btn view-cart">view cart</a>
                                                 <a href="checkout.html" class="btn">checkout</a>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
+                                {% endif %}
                             </div>
                             {% endif %}
                             <div class="mobile-menu-toggle">
@@ -307,7 +310,7 @@
                                 <div class="col-lg-6 col-sm-6 col-xs-6">
                                     <div class="wrap-custom-menu vertical-menu-2">
                                         <ul class="menu">
-                                            <li><a href="#">About Us</a></li>
+                                            <li><a href="{% url 'main.aboutus' %}">About Us</a></li>
                                             <li><a href="#">About Our Shop</a></li>
                                             <li><a href="#">Secure Shopping</a></li>
                                             <li><a href="#">Delivery infomation</a></li>

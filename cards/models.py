@@ -7,6 +7,7 @@ class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='carts')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    status = models.BooleanField(default=False)
 
     def itemcount(self):
         return self.items.count()
@@ -17,6 +18,15 @@ class Cart(models.Model):
             total += i.total_price()
         return total
     
+    def shipping(self):
+        if self.totalsum() < 150:
+            return 10
+        else:
+            return 0
+        
+    def total_cost(self):
+        return self.totalsum() + self.shipping()
+
     def checkproduct(self, product):
         quantity = 0
         for i in self.items.all():
@@ -32,3 +42,6 @@ class CartItem(models.Model):
 
     def total_price(self):
         return self.quantity * self.product.price_new
+    
+    def total_price_old(self):
+        return self.quantity * self.product.price_old

@@ -116,31 +116,33 @@
         });
     }
 
-    /*Events On Document*/
-    $document.on('click','.minicart-item .action .edit',function (e){
-        e.preventDefault();
-        let $this       = $(this),
-            cart_item   = $this.closest('.minicart-item'),
-            input_field = cart_item.find('.input-qty'),
-            curent_val  = input_field.val();
-        if( !cart_item.hasClass('editing')){
-            cart_item.addClass('editing');
-            input_field.removeAttr('disabled').val('');
-            input_field.val(curent_val).focus();
-        }else{
-            cart_item.removeClass('editing');
-            input_field.attr('disabled', 'disabled');
-        }
-    });
+    // /*Events On Document*/
+    // $document.on('click','.minicart-item .action .edit',function (e){
+    //     e.preventDefault();
+    //     let $this       = $(this),
+    //         cart_item   = $this.closest('.minicart-item'),
+    //         input_field = cart_item.find('.input-qty'),
+    //         curent_val  = input_field.val();
+    //     if( !cart_item.hasClass('editing')){
+    //         cart_item.addClass('editing');
+    //         input_field.removeAttr('disabled').val('');
+    //         input_field.val(curent_val).focus();
+    //     }else{
+    //         cart_item.removeClass('editing');
+    //         input_field.attr('disabled', 'disabled');
+    //     }
+    // });
 
-    $document.on('click','.minicart-item .action .remove',function (e){
-        e.preventDefault();
-        let _this           = $(this),
-            minicart_item   = _this.closest('li'),
-            block_minicart  = _this.closest('.cart-inner');
-        minicart_item.remove();
-        $('body').trigger( 'update-minicart',[ block_minicart ]);
-    });
+    // $document.on('click','.minicart-item .action .remove',function (e){
+    //     e.preventDefault();
+    //     alert('dfsdf')
+    //     let _this           = $(this),
+    //         minicart_item   = _this.closest('li'),
+    //         block_minicart  = _this.closest('.cart-inner');
+                
+    //     minicart_item.remove();
+    //     $('body').trigger( 'update-minicart',[ block_minicart ]);
+    // }, true);
 
     $document.on('click','#overlay',function (e){
         e.preventDefault();
@@ -199,7 +201,7 @@
     });
 
     $document.on('click','.qty-input .qty-btn', function (e){
-        e.preventDefault();
+        // e.preventDefault();
         let btn     = $(this),
             input   = btn.siblings("input[name^='qty']");
         if(input.length){

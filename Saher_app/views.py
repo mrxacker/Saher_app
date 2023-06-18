@@ -20,6 +20,12 @@ from django.contrib import messages
 def index(request):
     return render(request, 'index.html')
 
+def aboutus(request):
+    return render(request, 'about.html')
+
+def cart(request):
+    return render(request, 'cart.html')
+
 
 def error400(request, exception):
     return render(request, '404.html', status=404)
@@ -118,7 +124,8 @@ def removecart(request,i):
     product = Product.objects.get(id=i)
     cart, created = Cart.objects.get_or_create(user = request.user)
     cartitem, created = CartItem.objects.get_or_create(cart = cart, product = product)
-    cartitem.quantity-=1
+    if cartitem.quantity > 0:
+        cartitem.quantity-=1
     cartitem.save()
     if cartitem.quantity == 0:
         cartitem.delete()
@@ -131,3 +138,10 @@ def deletecart(request,i):
     cartitem.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
+
+def cartdeleteall(request):
+    cart, created = Cart.objects.get_or_create(user = request.user)
+    if not created:
+        cart.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    
