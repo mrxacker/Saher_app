@@ -18,6 +18,7 @@ from django.contrib.auth.decorators import login_required
 
 from customers.forms import CustomAuthenticationForm, CustomUserCreationForm
 from django.contrib import messages
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 def index(request):
@@ -80,9 +81,19 @@ def subcategory(request, i):
             all_products = Product.objects.filter(subcategory = subcat).order_by('price_new')
         elif request.GET['orderby'] == 'price-desc':
             all_products = Product.objects.filter(subcategory = subcat).order_by('-price_new')
+    
+    paginator = Paginator(all_products, 1)
+    page_number = request.GET.get('page') or 0
+    try:
+        products = paginator.page(page_number)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+    
     context = {
         'subcat': subcat,
-        'all_products':all_products,
+        'all_products':products,
         'select_opt':temp,
         'order_options':order_options,
     }

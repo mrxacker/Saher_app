@@ -79,17 +79,21 @@
 
                             </ul>
                         </div>
-
+                        {% if all_products.has_other_pages %}
                         <div class="biolife-panigations-block">
                             <ul class="panigation-contain">
-                                <li><span class="current-page">1</span></li>
-                                <li><a href="#" class="link-page">2</a></li>
-                                <li><a href="#" class="link-page">3</a></li>
-                                <li><span class="sep">....</span></li>
-                                <li><a href="#" class="link-page">20</a></li>
-                                <li><a href="#" class="link-page next"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                                {% if all_products.has_previous %}
+                                    <li><a href="?page={{ all_products.previous_page_number }}" class="link-page"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                                {% endif %}
+                                {% for i in all_products.paginator.page_range %}
+                                    <li> {% if all_products.number == i %} <span class="current-page">{{i}}</span> {% else %} <a href="?page={{i}}" class="link-page">{{i}}</a> {% endif %}</li>
+                                {% endfor %}
+                                {% if all_products.has_next %}
+                                <li><a href="?page={{ all_products.next_page_number }}" class="link-page"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                                {% endif %}
                             </ul>
                         </div>
+                        {% endif %}
 
                     </div>
 
