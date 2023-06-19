@@ -82,7 +82,7 @@ def subcategory(request, i):
         elif request.GET['orderby'] == 'price-desc':
             all_products = Product.objects.filter(subcategory = subcat).order_by('-price_new')
     
-    paginator = Paginator(all_products, 1)
+    paginator = Paginator(all_products, 16)
     page_number = request.GET.get('page') or 0
     try:
         products = paginator.page(page_number)

@@ -200,7 +200,7 @@
                             <ul class="tabs md-margin-bottom-35-im xs-margin-bottom-40-im">
                                 {% for category in categories %}
                                 <li class="tab-element {% if forloop.first %} active {% endif %}">
-                                    <a href="#tab{{category.id}}" class="tab-link"> <center><img src="{{category.icon.url}}" style="width:50px; display:block; margin: 0 auto%" class="img-fluid" alt=""></center>{{category.name}}</a>
+                                    <a href="#tab{{category.id}}" class="tab-link"> <i class="{{category.icon}}"></i>  {{category.name}}</a>
                                 </li>
                                 {% endfor %}
                             </ul>
