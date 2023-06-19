@@ -92,7 +92,7 @@ def product(request, i):
     product = Product.objects.get(id=i)
     quantity = 0
     if request.user is not None:
-        cart = Cart.objects.get(user=request.user)
+        cart = Cart.objects.get(user=request.user, status = False)
         quantity = cart.checkproduct(product)
     context = {
         'product': product,
@@ -164,3 +164,16 @@ def cartdeleteall(request):
         cart.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     
+    
+    
+def search(request):
+    print('ok')
+    if 's' in request.GET and request.GET['s'] != '':
+        s= request.GET['s']
+        all_products = Product.objects.filter(name__contains = s)
+        context = {
+            'all_products':all_products,
+        }
+        return render(request, 'search.html', context)
+    else:
+        return redirect ('main.home')

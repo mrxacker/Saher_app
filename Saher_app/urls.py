@@ -50,6 +50,8 @@ urlpatterns = [
     path('removecart/<int:i>', views.removecart, name='main.cart.remove'),
     path('deletecart/<int:i>', views.deletecart, name='main.cart.delete'),
     path('cartdeleteall/', views.cartdeleteall, name='main.cart.delete.all'),
+    
+    path('search', views.search, name='main.search')
 ]
 
 if settings.DEBUG:

@@ -128,15 +128,10 @@
                             <div class="mobile-search">
                                 <a href="javascript:void(0)" class="open-searchbox"><i class="biolife-icon icon-search"></i></a>
                                 <div class="mobile-search-content">
-                                    <form action="#" class="form-search" name="mobile-seacrh" method="get">
+                                    <form action="{% url 'main.search' %}" class="form-search" name="mobile-seacrh" method="get">
                                         <a href="#" class="btn-close"><span class="biolife-icon icon-close-menu"></span></a>
                                         <input type="text" name="s" class="input-text" value="" placeholder="Search here...">
-                                        <select name="category">
-                                            <option value="-1" selected>All Categories</option>
-                                            {% for category in categories %}
-                                            <option value="{{category.id}}">{{category.name}}</option>
-                                            {% endfor %}
-                                        </select>
+                                        
                                         <button type="submit" class="btn-submit">go</button>
                                     </form>
                                 </div>
@@ -255,14 +250,9 @@
                     </div>
                     <div class="col-lg-9 col-md-8 padding-top-2px">
                         <div class="header-search-bar layout-01">
-                            <form action="#" class="form-search" name="desktop-seacrh" method="get">
+                            <form action="{% url 'main.search' %}" class="form-search" name="desktop-seacrh" method="get">
                                 <input type="text" name="s" class="input-text" value="" placeholder="Search here...">
-                                <select name="category">
-                                    <option value="-1" selected>All Categories</option>
-                                    {% for category in categories %}
-                                    <option value="{{category.id}}">{{category.name}}</option>
-                                    {% endfor %}
-                                </select>
+                                
                                 <button type="submit" class="btn-submit"><i class="biolife-icon icon-search"></i></button>
                             </form>
                         </div>
@@ -291,15 +281,6 @@
                                     <span>Got Questions ?</span>
                                     <span>(993) 62 11-62-22</span>
                                 </p>
-                            </div>
-                            <div class="newsletter-block layout-01">
-                                <h4 class="title">Newsletter Signup</h4>
-                                <div class="form-content">
-                                    <form action="#" name="new-letter-foter">
-                                        <input type="email" class="input-text email" value="" placeholder="Your email here...">
-                                        <button type="submit" class="bnt-submit" name="ok">Sign up</button>
-                                    </form>
-                                </div>
                             </div>
                         </section>
                     </div>
@@ -370,25 +351,6 @@
                                 </ul>
                             </div>
                         </section>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="separator sm-margin-top-70px xs-margin-top-40px"></div>
-                    </div>
-                    <div class="col-lg-6 col-sm-6 col-xs-12">
-                        <div class="copy-right-text"><p><a href="#">saheronline</a></p></div>
-                    </div>
-                    <div class="col-lg-6 col-sm-6 col-xs-12">
-                        <div class="payment-methods">
-                            <ul>
-                                <li><a href="#" class="payment-link"><img src=" {% static 'assets/images/card1.jpg' %}" width="51" height="36" alt=""></a></li>
-                                <li><a href="#" class="payment-link"><img src=" {% static 'assets/images/card2.jpg' %}" width="51" height="36" alt=""></a></li>
-                                <li><a href="#" class="payment-link"><img src=" {% static 'assets/images/card3.jpg' %}" width="51" height="36" alt=""></a></li>
-                                <li><a href="#" class="payment-link"><img src=" {% static 'assets/images/card4.jpg' %}" width="51" height="36" alt=""></a></li>
-                                <li><a href="#" class="payment-link"><img src=" {% static 'assets/images/card5.jpg' %}" width="51" height="36" alt=""></a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>
