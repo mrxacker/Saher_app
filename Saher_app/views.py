@@ -13,6 +13,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login as lgin
 from django.contrib.auth import logout as lgout
 from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
+
 
 from customers.forms import CustomAuthenticationForm, CustomUserCreationForm
 from django.contrib import messages
@@ -27,6 +29,8 @@ def aboutus(request):
 def cart(request):
     return render(request, 'cart.html')
 
+
+@login_required(login_url='main.login')
 def checkout(request):
     form = OrderForm(request.POST or None)
     if request.method == 'POST':
@@ -67,7 +71,9 @@ order_options = [
 def subcategory(request, i):
     subcat = Subcategory.objects.get(id=i)
     all_products = Product.objects.filter(subcategory = subcat)
+    temp = None
     if 'orderby' in request.GET:
+        temp = request.GET['orderby']
         if request.GET['orderby'] == 'date':    
             all_products = Product.objects.filter(subcategory = subcat).order_by('created_at')
         elif request.GET['orderby'] == 'price':
@@ -77,7 +83,7 @@ def subcategory(request, i):
     context = {
         'subcat': subcat,
         'all_products':all_products,
-        'select_opt':request.GET['orderby'],
+        'select_opt':temp,
         'order_options':order_options,
     }
     return render(request, 'shop.html', context)
@@ -93,8 +99,6 @@ def product(request, i):
         'quantity': quantity
     }
     return render(request, 'product_details.html', context)
-
-
 
 def login(request):
     if request.method == "POST":
@@ -126,6 +130,7 @@ def logout(request):
     lgout(request)
     return redirect('main.home')
 
+@login_required(login_url='main.login')
 def addcart(request,i):
     product = Product.objects.get(id=i)
     cart, created = Cart.objects.get_or_create(user = request.user, status = False)
@@ -133,7 +138,7 @@ def addcart(request,i):
     cartitem.quantity+=1
     cartitem.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-
+@login_required(login_url='main.login')
 def removecart(request,i):
     product = Product.objects.get(id=i)
     cart, created = Cart.objects.get_or_create(user = request.user, status = False)
@@ -144,7 +149,7 @@ def removecart(request,i):
     if cartitem.quantity == 0:
         cartitem.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-
+@login_required(login_url='main.login')
 def deletecart(request,i):
     product = Product.objects.get(id=i)
     cart, created = Cart.objects.get_or_create(user = request.user, status = False)
@@ -152,7 +157,7 @@ def deletecart(request,i):
     cartitem.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-
+@login_required(login_url='main.login')
 def cartdeleteall(request):
     cart, created = Cart.objects.get_or_create(user = request.user, status = False)
     if not created:

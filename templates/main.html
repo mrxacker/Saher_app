@@ -411,7 +411,7 @@
                 </a>
             </div>
             <div class="mobile-block block-minicart">
-                <a class="link-to-cart" href="#">
+                <a class="link-to-cart" href="{% url 'main.cart' %}">
                     <span class="fa fa-shopping-bag" aria-hidden="true"></span>
                     <span class="text">Cart</span>
                 </a>
@@ -432,13 +432,20 @@
             <a class="biolife-close-btn" data-object="global-panel-opened" href="#">&times;</a>
         </div>
         <div class="block-global-contain">
-            <div class="glb-item my-account">
+            <div class="glb-item my-account">  
+                {% if user.is_authenticated %}
+                <b class="title"> {{user.username}}</b>
+                <ul class="list">
+                    <li class="list-item"><a href="{% url 'main.logout' %}">Logout</a></li>
+                    <li class="list-item"><a href="{% url 'main.checkout' %}">Checkout</a></li>
+                </ul>
+                {% else %}
                 <b class="title">My Account</b>
                 <ul class="list">
-                    <li class="list-item"><a href="#">Login/register</a></li>
-                    <li class="list-item"><a href="#">Wishlist <span class="index">(8)</span></a></li>
-                    <li class="list-item"><a href="#">Checkout</a></li>
+                    <li class="list-item"><a href="{% url 'main.login' %}">Login/register</a></li>
+                    <li class="list-item"><a href="{% url 'main.checkout' %}">Checkout</a></li>
                 </ul>
+                {% endif %}
             </div>
             <div class="glb-item currency">
                 <b class="title">Currency</b>
