@@ -178,7 +178,6 @@ def cartdeleteall(request):
     
     
 def search(request):
-    print('ok')
     if 's' in request.GET and request.GET['s'] != '':
         s= request.GET['s']
         all_products = Product.objects.filter(name__contains = s)
