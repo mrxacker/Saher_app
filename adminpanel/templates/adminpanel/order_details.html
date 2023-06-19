@@ -1,0 +1,63 @@
+{% extends 'adminpanel/main.html' %}
+{% block main %}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Orders of {{order.full_name}}</h1>
+        <div class="card mb-4">
+            <div class="card-header">
+                <div>
+                    <p> <b>Customer name:</b> {{order.full_name}} <p>
+                </div>
+                <div>
+                    <p> <b>Phone number:</b> {{order.phone_number}} <p>
+                </div>
+                <div>
+                    <p> <b>Shipping address:</b> {{order.address}} <p>
+                </div>
+                <div>
+                    <p> <b>Note:</b> {{order.note}} <p>
+                </div>
+                <div>
+                    <p> <b>Subtotal cost:</b> {{order.cart.totalsum}} TMT<p>
+                </div>
+                <div>
+                    <p> <b>Shipping cost:</b> {{order.cart.shipping}} TMT<p>
+                </div>
+                <div>
+                    <p> <b>Total cost:</b> {{order.cart.total_cost}} <p>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Product name</th>
+                            <th>Unit price</th>
+                            <th>Count</th>
+                            <th>Total price</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Product name</th>
+                            <th>Unit price</th>
+                            <th>Count</th>
+                            <th>Total price</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for order_item in order.cart.items.all %}
+                        <tr>
+                            <td>{{order_item.product.name}}</td>
+                            <td>{{order_item.product.price_new}} TMT</td>
+                            <td>{{order_item.quantity}}</td>
+                            <td> {{order_item.total_price}} TMT</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock main %}

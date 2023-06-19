@@ -37,6 +37,7 @@ urlpatterns = [
     path("contact/", views.contact, name="main.contact"),
     path("aboutus/", views.aboutus, name="main.aboutus"),
     path("cart/", views.cart, name="main.cart"),
+    path("checkout/", views.checkout, name="main.checkout"),
 
     path('sub/<int:i>', views.subcategory, name='main.sub'),
     path('product/<int:i>', views.product, name='main.product'),

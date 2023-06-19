@@ -1,0 +1,51 @@
+{% extends 'adminpanel/main.html' %}
+{% block main %}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Orders</h1>
+        <div class="card mb-4">
+            <div class="card-header">
+                {% comment %} <a class="btn btn-primary" href="{% url 'product.add' %}" role="button"> <i class="fa fa-plus" aria-hidden="true"></i> Add new Product</a> {% endcomment %}
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Customer name</th>
+                            <th>Payment type</th>
+                            <th>Phone number</th>
+                            <th>Total cost</th>
+                            <th>Products count</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Customer name</th>
+                            <th>Payment type</th>
+                            <th>Phone number</th>
+                            <th>Total cost</th>
+                            <th>Products count</th>
+                            <th>View</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <td>{{order.full_name}}</td>
+                            <td>{{order.payment_type}}</td>
+                            <td>{{order.phone_number}}</td>
+                            <td> {{order.cart.total_cost}} TMT</td>
+                            <td> {{order.cart.created_at|date:"d.m.Y H:i:s"}}</td>
+                            <td>
+                                <a href="{% url 'admin.order_details' order.id %}" class="btn btn-sm btn-info"> <i class="fa fa-list" aria-hidden="true"></i> View</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock main %}

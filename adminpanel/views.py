@@ -6,6 +6,7 @@ from feedbacks.models import Feedback
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
+from orders.models import Order
 
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
@@ -26,7 +27,7 @@ def index(request):
         'products_count':products_count,
         'users_count':users_count,
     }
-    return render(request, 'adminpanel//', context)
+    return render(request, 'adminpanel/index.html', context)
 
 @login_required(login_url='admin.login')
 def categories(request):
@@ -60,6 +61,22 @@ def feedbacks(request):
         'feedbacks':feedbacks
     }
     return render(request, 'adminpanel/feedbacks.html', context)
+
+@login_required(login_url='admin.login')
+def orders(request):
+    orders = Order.objects.all()
+    context = {
+        'orders':orders
+    }
+    return render(request, 'adminpanel/orders.html', context)
+
+@login_required(login_url='admin.login')
+def order_details(request,i):
+    order = Order.objects.get(id=i)
+    context = {
+        'order':order
+    }
+    return render(request, 'adminpanel/order_details.html', context)
 
 @login_required(login_url='admin.login')
 def users(request):

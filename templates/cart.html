@@ -53,7 +53,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    {% for item in user.carts.all.0.items.all %}
+                                    {% for item in shopping_cart.items.all %}
                                 <tr class="cart_item">
                                     <td class="product-thumbnail" data-title="Product Name">
                                         <a class="prd-thumb" href="#">
@@ -101,19 +101,19 @@
                     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                         <div class="shpcart-subtotal-block">
                             <div class="subtotal-line">
-                                <b class="stt-name">Subtotal <span class="sub">({{user.carts.all.0.itemcount}} items)</span></b>
-                                <span class="stt-price">{{user.carts.all.0.totalsum}} TMT</span>
+                                <b class="stt-name">Subtotal <span class="sub">({{shopping_cart.itemcount}} items)</span></b>
+                                <span class="stt-price">{{shopping_cart.totalsum}} TMT</span>
                             </div>
                             <div class="subtotal-line">
                                 <b class="stt-name">Shipping</b>
-                                <span class="stt-price">{{user.carts.all.0.shipping}} TMT</span>
+                                <span class="stt-price">{{shopping_cart.shipping}} TMT</span>
                             </div>
                             <div class="subtotal-line">
                                 <b class="stt-name">Total</b>
-                                <span class="stt-price">{{user.carts.all.0.total_cost}} TMT</span>
+                                <span class="stt-price">{{shopping_cart.total_cost}} TMT</span>
                             </div>
                             <div class="btn-checkout">
-                                <a href="#" class="btn checkout">Check out</a>
+                                <a href="{% url 'main.checkout' %}" class="btn checkout">Check out</a>
                             </div>
                         </div>
                     </div>

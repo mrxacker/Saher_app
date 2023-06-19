@@ -4,6 +4,7 @@ from categories.models import Category
 from subcategories.models import Subcategory
 from feedbacks.forms import FeedbackForm
 from products.models import Product
+from orders.forms import OrderForm
 
 from cards.models import Cart, CartItem
 
@@ -25,6 +26,19 @@ def aboutus(request):
 
 def cart(request):
     return render(request, 'cart.html')
+
+def checkout(request):
+    form = OrderForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            order = form.save(commit=False)
+            cart = request.user.carts.filter(status=False)[0]
+            order.cart = cart
+            cart.status = True
+            cart.save()
+            order.save()
+            return redirect('main.home')
+    return render(request, 'checkout.html', {'form':form})
 
 
 def error400(request, exception):
@@ -114,7 +128,7 @@ def logout(request):
 
 def addcart(request,i):
     product = Product.objects.get(id=i)
-    cart, created = Cart.objects.get_or_create(user = request.user)
+    cart, created = Cart.objects.get_or_create(user = request.user, status = False)
     cartitem, created = CartItem.objects.get_or_create(cart = cart, product = product)
     cartitem.quantity+=1
     cartitem.save()
@@ -122,7 +136,7 @@ def addcart(request,i):
 
 def removecart(request,i):
     product = Product.objects.get(id=i)
-    cart, created = Cart.objects.get_or_create(user = request.user)
+    cart, created = Cart.objects.get_or_create(user = request.user, status = False)
     cartitem, created = CartItem.objects.get_or_create(cart = cart, product = product)
     if cartitem.quantity > 0:
         cartitem.quantity-=1
@@ -133,14 +147,14 @@ def removecart(request,i):
 
 def deletecart(request,i):
     product = Product.objects.get(id=i)
-    cart, created = Cart.objects.get_or_create(user = request.user)
+    cart, created = Cart.objects.get_or_create(user = request.user, status = False)
     cartitem, created = CartItem.objects.get_or_create(cart = cart, product = product)
     cartitem.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def cartdeleteall(request):
-    cart, created = Cart.objects.get_or_create(user = request.user)
+    cart, created = Cart.objects.get_or_create(user = request.user, status = False)
     if not created:
         cart.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
