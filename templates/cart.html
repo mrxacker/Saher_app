@@ -7,36 +7,6 @@
     <div id="main-content" class="main-content">
         <div class="container">
 
-            <!--Top banner-->
-            <div class="top-banner background-top-banner-for-shopping min-height-346px">
-                <h3 class="title">Save 50TMT!*</h3>
-                <p class="subtitle">Save 50TMT when you open an account online & spend 50TMT on your first online purchase to day</p>
-                <ul class="list">
-                    <li>
-                        <div class="price-less">
-                            <span class="desc">Purchase amount</span>
-                            <span class="cost">0.00TMT</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="price-less">
-                            <span class="desc">Credit on billing statement</span>
-                            <span class="cost">0.00TMT</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="price-less sum">
-                            <span class="desc">Cost affter statemen credit</span>
-                            <span class="cost">0.00TMT</span>
-                        </div>
-                    </li>
-                </ul>
-                <p class="btns">
-                    <a href="#" class="btn">Open Account</a>
-                    <a href="#" class="btn">Learn more</a>
-                </p>
-            </div>
-
             <!--Cart Table-->
             <div class="shopping-cart-container">
                 <div class="row">
@@ -61,13 +31,15 @@
                                         </a>
                                         <a class="prd-name" href="#">{{item.product.name}}</a>
                                         <div class="action">
-                                            <a href="#" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            <a href="{% url 'main.cart.delete' item.product.id %}" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                         </div>
                                     </td>
                                     <td class="product-price" data-title="Price">
                                         <div class="price price-contain">
                                             <ins><span class="price-amount">{{item.product.price_new}} <span class="currencySymbol">TMT</span></span></ins>
-                                            <del><span class="price-amount">{{item.product.price_old}} <span class="currencySymbol">TMT</span></span></del>
+                                            {% if item.product.price_old is not None %}
+                                                <del><span class="price-amount">{{item.product.price_old}} <span class="currencySymbol">TMT</span></span></del>
+                                            {% endif %}
                                         </div>
                                     </td>
                                     <td class="product-quantity" data-title="Quantity">
@@ -82,7 +54,9 @@
                                     <td class="product-subtotal" data-title="Total">
                                         <div class="price price-contain">
                                             <ins><span class="price-amount">{{item.total_price}} <span class="currencySymbol">TMT</span></span></ins>
-                                            <del><span class="price-amount">{{item.total_price_old}} <span class="currencySymbol">TMT</span></span></del>
+                                            {% if item.total_price_old is not None %}
+                                                <del><span class="price-amount">{{item.total_price_old}} <span class="currencySymbol">TMT</span></span></del>
+                                            {% endif %}
                                         </div>
                                     </td>
                                 </tr>

@@ -93,7 +93,9 @@
                                         </div>
                                         <div class="price price-contain">
                                             <ins><span class="price-amount">{{item.total_price}} <span class="currencySymbol">TMT</span></span></ins>
-                                            <del><span class="price-amount">{{item.total_price_old}} <span class="currencySymbol">TMT</span></span></del>
+                                            {% if item.total_price_old is not None %}
+                                                <del><span class="price-amount">{{item.total_price_old}} <span class="currencySymbol">TMT</span></span></del>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </li>

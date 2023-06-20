@@ -46,7 +46,9 @@
                                             <h4 class="product-title"><a href="{% url 'main.product' product.id %}" class="pr-name">{{product.name}}</a></h4>
                                             <div class="price">
                                                 <ins><span class="price-amount">{{product.price_new}} <span class="currencySymbol">TMT</span> </span></ins>
-                                                <del><span class="price-amount">{{product.price_old}} <span class="currencySymbol">TMT</span></span></del>
+                                                {% if product.price_old is not None %}
+                                                        <del><span class="price-amount">{{product.price_old}} <span class="currencySymbol">TMT</span></span></del>
+                                                    {% endif %}
                                             </div>
                                             <div class="shipping-info">
                                                 <p class="shipping-day">3-Day Shipping</p>

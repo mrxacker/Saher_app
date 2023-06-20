@@ -222,7 +222,9 @@
                                                 <h4 class="product-title"><a href="#" class="pr-name">{{product.name}}</a></h4>
                                                 <div class="price ">
                                                     <ins><span class="price-amount">{{product.price_new}} <span class="currencySymbol">TMT</span></span></ins>
-                                                    <del><span class="price-amount">{{product.price_old}} <span class="currencySymbol">TMT</span></span></del>
+                                                    {% if product.price_old is not None %}
+                                                        <del><span class="price-amount">{{product.price_old}} <span class="currencySymbol">TMT</span></span></del>
+                                                    {% endif %}
                                                 </div>
                                                 <div class="slide-down-box">
                                                     <p class="message">All products are carefully selected to ensure food safety.</p>

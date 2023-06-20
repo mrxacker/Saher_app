@@ -16,7 +16,9 @@
 
                     <div class="price price-contain">
                         <ins><span class="price-amount">{{product.price_new}} <span class="currencySymbol">TMT</span> </span></ins>
-                        <del><span class="price-amount">{{product.price_old}} <span class="currencySymbol">TMT</span></span></del>
+                        {% if product.price_old is not None %}
+                            <del><span class="price-amount">{{product.price_old}} <span class="currencySymbol">TMT</span></span></del>
+                        {% endif %}
                     </div>
                     <p class="excerpt">{{product.desc}}</p>
                     <div class="from-cart">

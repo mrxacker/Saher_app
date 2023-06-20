@@ -161,7 +161,9 @@
                                                             <div class="product-title"><a href="{% url 'main.product' item.product.id %}" class="product-name">{{item.product.name}}</a></div>
                                                             <div class="price">
                                                                 <ins><span class="price-amount">{{item.product.price_new}} <span class="currencySymbol">TMT</span> </span></ins>
-                                                                <del><span class="price-amount">{{item.product.price_old}} <span class="currencySymbol">TMT</span></span></del>
+                                                                {% if item.product.price_old is not None %}
+                                                                    <del><span class="price-amount">{{item.product.price_old}} <span class="currencySymbol">TMT</span></span></del>
+                                                                {% endif %}
                                                             </div>
                                                             <div class="qty">
                                                                 <label for="cart[id123][qty]">Qty:</label>
